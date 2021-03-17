@@ -15,15 +15,25 @@
     <title>ShoppingApp</title>
   </head>
   <body>
-    <header class="title">Shopping List</header>
-    <main class="lists_wrap">
-      <ul class="lists"></ul>
-    </main>
-    <footer class="interface">
-      <form onsubmit="return false;">
-        <input class="typing" type="text" name="stuff" />
-      </form>
-      <i class="fas fa-plus plus"></i>
-    </footer>
+    <section class="section">
+      <header class="header">Shopping List</header>
+      <ul class="lists">
+        <li class="list__row">
+          <div class="list">
+            <span class="list__name">Egg</span>
+            <button class="list__delete">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+          <div class="list__divider"></div>
+        </li>
+      </ul>
+      <footer class="footer">
+        <input class="input" type="text" name="stuff" />
+        <button class="footer__addBtn">
+          <i class="fas fa-plus plus"></i>
+        </button>
+      </footer>
+    </section>
   </body>
 </html>

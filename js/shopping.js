@@ -1,35 +1,62 @@
 "use strict";
 
-const plusBtn = document.querySelector(".plus");
+const addBtn = document.querySelector(".footer__addBtn");
 const lists = document.querySelector(".lists");
-const form = document.querySelector("form");
+const input = document.querySelector(".input");
 
 function appendList() {
-  const list = document.querySelector(".typing");
-  if (list === "") {
+  const input = document.querySelector(".input");
+  if (input.value === "") {
+    input.focus();
     return;
   }
+
+  const list__row = creatList(input);
+
+  lists.appendChild(list__row);
+  list__row.scrollIntoView();
+  input.value = "";
+  input.focus();
+}
+function creatList(input) {
   const li = document.createElement("li");
-  li.getAttribute("class", "list");
-  li.innerHTML = `${list.value}
-    <i class="fas fa-trash-alt trash"></i>`;
-  lists.appendChild(li);
-  list.value = "";
-}
-function deletList(target) {
-  lists.removeChild(target.parentNode);
+  li.setAttribute("class", "list__row");
+
+  const div = document.createElement("div");
+  div.setAttribute("class", "list");
+
+  const span = document.createElement("span");
+  span.setAttribute("class", "list__name");
+  span.innerText = `${input.value}`;
+
+  const button = document.createElement("button");
+  button.setAttribute("class", "list__delete");
+  button.innerHTML = `<i class="fas fa-trash-alt"></i>`;
+  button.addEventListener("click", () => {
+    deletList(li);
+  });
+
+  const divider = document.createElement("div");
+  divider.setAttribute("class", "list__divider");
+
+  div.appendChild(span);
+  div.appendChild(button);
+  li.appendChild(div);
+  li.appendChild(divider);
+
+  return li;
 }
 
-plusBtn.addEventListener("click", () => {
+function deletList(list) {
+  lists.removeChild(list);
+}
+
+addBtn.addEventListener("click", () => {
   appendList();
 });
 
-lists.addEventListener("click", (event) => {
-  if (event.target.className === "fas fa-trash-alt trash") {
-    deletList(event.target);
+input.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    appendList();
   }
-});
-
-form.addEventListener("submit", () => {
-  appendList();
 });
