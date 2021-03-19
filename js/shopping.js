@@ -22,33 +22,22 @@ function creatList(input) {
   const li = document.createElement("li");
   li.setAttribute("class", "list__row");
 
-  const div = document.createElement("div");
-  div.setAttribute("class", "list");
-
-  const span = document.createElement("span");
-  span.setAttribute("class", "list__name");
-  span.innerText = `${input.value}`;
-
-  const button = document.createElement("button");
-  button.setAttribute("class", "list__delete");
-  button.innerHTML = `<i class="fas fa-trash-alt"></i>`;
-  button.addEventListener("click", () => {
-    deletList(li);
-  });
-
-  const divider = document.createElement("div");
-  divider.setAttribute("class", "list__divider");
-
-  div.appendChild(span);
-  div.appendChild(button);
-  li.appendChild(div);
-  li.appendChild(divider);
+  li.innerHTML = `<div class="list">
+                        <span class="list__name">
+                        ${input.value}
+                        </span>
+                        <button class="list__delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    <div class="list__divider"></div>
+                  `;
 
   return li;
 }
 
 function deletList(list) {
-  lists.removeChild(list);
+  list.remove();
 }
 
 addBtn.addEventListener("click", () => {
@@ -58,5 +47,11 @@ addBtn.addEventListener("click", () => {
 input.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     appendList();
+  }
+});
+
+lists.addEventListener("click", (event) => {
+  if (event.target.className === "fas fa-trash-alt") {
+    deletList(event.target.parentNode.parentNode.parentNode);
   }
 });
